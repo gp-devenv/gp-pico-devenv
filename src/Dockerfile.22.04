@@ -1,0 +1,58 @@
+#
+# gp-pico-devenv
+# Copyright (c) 2023-2024, Greg PFISTER. MIT License.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+
+FROM ghcr.io/gp-devenv/gp-base-devenv:22.04-1
+
+LABEL org.opencontainers.image.source=https://github.com/gp-devenv/gp-pico-devenv
+LABEL org.opencontainers.image.description="Raspberry Pico dev container for VS Code running Ubuntu 22.04"
+LABEL org.opencontainers.image.licenses=MIT
+
+# Versions
+ARG PICO_SDK_VERSION="20"
+
+USER root
+
+# Update all
+RUN apt-get update && \
+    apt-get full-upgrade -y && \
+    apt-get autoremove -y && \
+    apt-get autoclean
+
+# Install dependencies
+RUN apt-get install -y -o DPkg::Options::=--force-confdef cmake                   \
+                                                          gcc-arm-none-eabi       \
+                                                          libnewlib-arm-none-eabi \
+                                                          pkg-config              \
+                                                          libusb-1.0-0-dev
+# Install pico-sdk
+RUN mkdir -p /opt/rpi-pico/v${PICO_SDK_VERSION}
+WORKDIR /opt/rpi-pico/v${PICO_SDK_VERSION}
+RUN git clone --recursive https://github.com/raspberrypi/pico-sdk.git        --branch ${PICO_SDK_VERSION}     && \
+    git clone --recursive https://github.com/raspberrypi/pico-extras.git     --branch sdk-${PICO_SDK_VERSION} && \
+    git clone --recursive https://github.com/raspberrypi/pico-playground.git --branch sdk-${PICO_SDK_VERSION} && \
+    git clone --recursive https://github.com/raspberrypi/picotool.git        --branch ${PICO_SDK_VERSION}
+    
+# Install picotool
+WORKDIR /opt/rpi-pico/v${PICO_SDK_VERSION}/picotool
+RUN mkdir build && cd build                                            && \
+    PICO_SDK_PATH=/opt/rpi-pico/v${PICO_SDK_VERSION}/pico-sdk cmake .. && \
+    make -j 8 && make install
+
+# Welcome message
+COPY dist/etc/gp-devenv/zshrc.d /etc/gp-devenv/zshrc.d/
+
+EXPOSE 80
+
+ENTRYPOINT ["sudo", "/entrypoint.sh"]
+
+# End
