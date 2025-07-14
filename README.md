@@ -53,12 +53,12 @@ For example:
 
 | Image                                              | Description                                                     |
 | -------------------------------------------------- | --------------------------------------------------------------- |
-| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.0.0       | The latest build using Ubuntu 22.04 and `pico-sdk` v2.0.0       |
-| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.0.0-1     | The latest build 1.x using Ubuntu 22.04 and `pico-sdk` v2.0.0   |
-| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.0.0-1.1   | The latest build 1.1.x using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
-| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.0.0-1.1.0 | The latest build 1.1.0 using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
-| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.0.0-1.0   | The latest build 1.0.x using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
-| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.0.0-1.0.0 | The latest build 1.0.0 using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
+| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.1.1       | The latest build using Ubuntu 22.04 and `pico-sdk` v2.0.0       |
+| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.1.1-1     | The latest build 1.x using Ubuntu 22.04 and `pico-sdk` v2.0.0   |
+| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.1.1-1.1   | The latest build 1.1.x using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
+| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.1.1-1.1.0 | The latest build 1.1.0 using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
+| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.1.1-1.0   | The latest build 1.0.x using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
+| ghcr.io/gp-devenv/gp-pico-devenv:22.04-2.1.1-1.0.0 | The latest build 1.0.0 using Ubuntu 22.04 and `pico-sdk` v2.0.0 |
 
 For CI/CD, the build version is store in `.version` file. The build version is
 in the format
